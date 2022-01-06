@@ -1,0 +1,25 @@
+#Sync files in the text file fron source directory to destination directory
+rsync --files-from=filename source-directory/ destination-directory/
+
+#Find and replace / (string) with values
+%s/var\/www\/html\/test/test1
+
+#Delete a Range of Lines
+:[from],[to]d
+:4,7d
+
+#Delete all lines
+:%d
+
+#Delete From Current Line to the End of File
+:.,$d
+
+#Delete From Current Line to the Beginning of File
+dgg
+
+#List numner of files in the directory
+ls val-10000/ | wc -l
+
+#Find first 1000 files from directory to another directory
+find . -maxdepth 1 -type f |head -1000|xargs cp -t "$destdir"
+find val -maxdepth 1 -type f |head -1000|xargs cp -t val-1000
