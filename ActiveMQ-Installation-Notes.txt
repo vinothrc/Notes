@@ -1,0 +1,22 @@
+ docker run -it -dit --restart unless-stopped --name activemq -v /opt/activemq-artemis:/opt -p 8161:8161 -p 61616:61616 --privileged ubuntu:22.04
+
+
+apt update && apt install vim sudo net-tools wget htop -y
+apt install openjdk-17-jdk -y
+java -version
+sudo groupadd artemis
+sudo useradd -s /bin/false -g artemis -d /opt/artemis artemis
+cd /opt/ && sudo wget https://archive.apache.org/dist/activemq/activemq-artemis/2.28.0/apache-artemis-2.28.0-bin.tar.gz
+sudo tar -xvzf apache-artemis-2.28.0-bin.tar.gz
+sudo mv apache-artemis-2.28.0 artemis
+sudo chown -R artemis: artemis
+sudo chmod o+x /opt/artemis/bin/
+sudo /opt/artemis/bin/artemis create /var/lib/audit-broker
+"/var/lib/audit-broker/bin/artemis" run
+
+vi /var/lib/audit-broker/etc/bootstrap.xml
+vi /var/lib/audit-broker/etc/jolokia-access.xml
+sudo chown artemis: /var/lib/audit-broker/
+vi /var/lib/audit-broker/etc/broker.xml
+
+sudo /var/lib/audit-broker/bin/artemis run
